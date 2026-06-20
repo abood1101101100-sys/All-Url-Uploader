@@ -25,6 +25,13 @@ def _command_base(parsed_input: ParsedInput, settings: Settings) -> list[str]:
         command.extend(["--username", parsed_input.username])
     if parsed_input.password:
         command.extend(["--password", parsed_input.password])
+
+    # cookies support — place cookies.txt in the project root
+    cookies_path = Path("/app/cookies.txt")
+    if cookies_path.exists():
+        command.extend(["--cookies", str(cookies_path)])
+        logger.debug("Using cookies file | path=%s", cookies_path)
+
     return command
 
 
